@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Marry Me?</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Georgia', serif;
+      background-image: url('romantic-bg.jpg'); /* Add your romantic background image */
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    h1 {
+      color: #ffdde1;
+      font-size: 3em;
+      margin-top: 50px;
+      text-shadow: 2px 2px 5px #000;
+    }
+    button {
+      margin: 15px;
+      padding: 15px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    .yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .no {
+      background-color: #f44336;
+      color: white;
+    }
+    .proposal-scene {
+      margin-top: 30px;
+    }
+    .proposal-scene img {
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💍 Will you marry me?</h1>
+  <button class="yes" onclick="sayYes()">Yes</button>
+  <button class="no" onclick="sayNo()">No</button>
+
+  <!-- Background music -->
+  <audio id="bgMusic" src="romantic-music.mp3"></audio>
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function sayYes() {
+      document.body.innerHTML = `
+        <h1>💖 She Said YES! 💖</h1>
+        <div class="proposal-scene">
+          <img src="boy-proposing.png" alt="Boy proposing with ring">
+          <p>He kneels down and presents the ring... She accepts! 💍</p>
+        </div>
+      `;
+
+      // Play background music
+      document.getElementById("bgMusic").play();
+
+      // Multiple bursts of confetti for 5 seconds
+      var duration = 5 * 1000;
+      var end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 10,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 10,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+
+    function sayNo() {
+      alert("❌ Error 404: You cannot choose No. Try again!");
+      document.body.innerHTML = `
+        <h1>He is Rare, so don’t miss him 💔</h1>
+        <p>Redirecting back...</p>
+      `;
+      setTimeout(() => location.reload(), 3000); // reloads to proposal page
+    }
+  </script>
+</body>
+</html>
